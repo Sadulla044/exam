@@ -65,7 +65,10 @@ class CategoryEditDeleteApiView(APIView):
         return Response(data=serializer.data, status=201)
 
     def delete(self, request, slug, *args, **kwargs):
-        pass
+        category = get_object_or_404(self.model, slug=slug)
+        category_id = category.id
+        category.delete()
+        return Response(data={'deleted': f'{category_id} - Category deleted successfully!'}, status=204)
 
 
 # Product
@@ -112,10 +115,10 @@ class ProductEditDeleteApiView(APIView):
         return Response(data=serializer.data, status=201)
 
     def delete(self, request, slug, *args, **kwargs):
-        category = get_object_or_404(self.model, slug=slug)
-        category_id = category.id
-        category.delete()
-        return Response(data={'deleted': f'{category_id} - Category deleted successfully!'}, status=204)
+        product = get_object_or_404(self.model, slug=slug)
+        product_id = product.id
+        product.delete()
+        return Response(data={'deleted': f'{product_id} - Product deleted successfully!'}, status=204)
 
 
 # Product Image
@@ -162,10 +165,10 @@ class ProductImageEditDeleteApiView(APIView):
         return Response(data=serializer.data, status=201)
 
     def delete(self, request, slug, *args, **kwargs):
-        product = get_object_or_404(self.model, slug=slug)
-        product_id = product.id
-        product.delete()
-        return Response(data={'deleted': f'{product_id} - Product deleted successfully!'}, status=204)
+        productImage = get_object_or_404(self.model, slug=slug)
+        productImage_id = productImage.id
+        productImage.delete()
+        return Response(data={'deleted': f'{productImage_id} - ProductImage deleted successfully!'}, status=204)
 
 
 # Inventory
